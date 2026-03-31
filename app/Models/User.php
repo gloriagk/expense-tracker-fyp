@@ -1,6 +1,9 @@
 <?php
 
 namespace App\Models;
+use App\Models\Expense;
+use App\Models\Budget;
+use App\Models\SpendingInsight;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Database\Factories\UserFactory;
@@ -45,5 +48,20 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+        public function expenses()
+    {
+        return $this->hasMany(Expense::class);
+    }
+
+    public function budgets()
+    {
+        return $this->hasMany(Budget::class);
+    }
+
+    public function spendingInsights()
+    {
+        return $this->hasMany(SpendingInsight::class);
     }
 }
