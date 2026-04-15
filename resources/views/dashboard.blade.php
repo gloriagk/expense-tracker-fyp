@@ -2,31 +2,6 @@
     <div class="min-h-screen bg-gray-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
 
-            <!-- Top bar -->
-            <div class="bg-white border rounded-2xl shadow-sm px-6 py-4 flex items-center justify-between mb-6">
-                
-                <!-- Left side -->
-                <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 rounded-xl bg-indigo-600 flex items-center justify-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M21 12V7a2 2 0 00-2-2H5a2 2 0 00-2 2v5m18 0v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5m18 0H3" />
-                        </svg>
-                    </div>
-
-                    <h1 class="font-bold text-lg text-gray-800">ExpenseTracker</h1>
-                </div>
-
-                <!-- Right side -->
-                <div class="flex items-center gap-4">
-                    <a href="{{ route('expenses.create') }}"
-                    class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-xl text-sm font-medium">
-                        + Add Expense
-                    </a>
-                </div>
-
-            </div>
-
             <!-- Heading -->
             <div class="mb-6">
                 <h2 class="text-3xl font-bold text-gray-900">Welcome back, {{ auth()->user()->name }}!</h2>
