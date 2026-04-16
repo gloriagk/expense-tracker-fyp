@@ -3,8 +3,10 @@
         <div class="flex justify-between h-16">
             <div class="flex">
                 <div class="shrink-0 flex items-center gap-3">
-                    <div class="w-10 h-10 rounded-xl bg-indigo-600 flex items-center justify-center text-white text-lg">
-                        👜
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-white" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M3 7a2 2 0 0 1 2-2h11a1 1 0 0 1 .707.293l2 2A1 1 0 0 1 19 8v1h1a1 1 0 0 1 1 1v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7zm16 4h-3a1 1 0 0 0 0 2h3v-2z"/>
+                        </svg>
                     </div>
                     <span class="font-bold text-lg text-gray-900">ExpenseTracker</span>
                 </div>
@@ -20,6 +22,10 @@
 
                     <x-nav-link :href="route('budget.index')" :active="request()->routeIs('budget.index')">
                         Budget
+                    </x-nav-link>
+
+                    <x-nav-link :href="route('analysis.index')" :active="request()->routeIs('analysis.index')">
+                        Analysis
                     </x-nav-link>
                 </div>
             </div>

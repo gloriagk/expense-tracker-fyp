@@ -78,7 +78,7 @@
                         </div>
 
                         <div class="w-full bg-gray-200 rounded-full h-3">
-                            <div class="bg-blue-600 h-3 rounded-full" style="width: {{ $usagePercent }}%"></div>
+                            <div class="bg-gradient-to-r from-indigo-600 to-purple-600 h-3 rounded-full" style="width: {{ $usagePercent }}%"></div>
                         </div>
                     </div>
                 </div>

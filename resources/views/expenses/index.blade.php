@@ -47,7 +47,8 @@
                                 <td class="px-6 py-4">
                                     <div class="flex items-center justify-center gap-2 whitespace-nowrap">
                                         <a href="{{ route('expenses.edit', $expense->id) }}"
-                                        class="bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium px-4 py-2 rounded-lg">
+                                        class="bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium px-4 py-2 rounded-lg
+                                        transition duration-200 ease-in-out transform hover:-translate-y-0.5 hover:shadow-md">
                                             Edit
                                         </a>
 
@@ -59,7 +60,8 @@
 
                                             <button type="button"
                                                     onclick="confirmDelete({{ $expense->id }})"
-                                                    class="bg-red-600 text-white px-4 py-2 rounded-lg">
+                                                    class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg 
+                                                    transition duration-200 ease-in-out transform hover:-translate-y-0.5 hover:shadow-md">
                                                 Delete
                                             </button>
                                         </form>

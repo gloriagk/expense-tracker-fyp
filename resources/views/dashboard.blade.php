@@ -55,13 +55,50 @@
                 <div class="bg-white rounded-2xl shadow-sm border p-6">
                     <h3 class="text-lg font-semibold text-gray-800 mb-4">Financial Insights</h3>
 
-                    <div class="space-y-3">
+                    <div class="space-y-4">
+
                         @foreach($insights as $insight)
-                            <div class="rounded-xl p-4 {{ $insight['bg'] }}">
-                                <p class="font-semibold {{ $insight['text'] }}">{{ $insight['title'] }}</p>
-                                <p class="text-sm mt-1 {{ $insight['text'] }}">{{ $insight['desc'] }}</p>
-                            </div>
+
+                            @if($loop->index == 0)
+                                <!-- BLUE CARD -->
+                                <div class="flex items-start gap-4 bg-blue-50 rounded-2xl p-4">
+                                    <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 text-lg shrink-0">
+                                        💡
+                                    </div>
+                                    <div>
+                                        <p class="font-semibold text-blue-700">{{ $insight['title'] }}</p>
+                                        <p class="text-sm text-blue-600 mt-1">{{ $insight['desc'] }}</p>
+                                    </div>
+                                </div>
+
+                            @elseif($loop->index == 1)
+                                <!-- YELLOW CARD -->
+                                <div class="flex items-start gap-4 bg-yellow-50 rounded-2xl p-4">
+                                    <div class="w-10 h-10 rounded-full bg-yellow-100 flex items-center justify-center text-yellow-600 text-lg shrink-0">
+                                        ⚠
+                                    </div>
+                                    <div>
+                                        <p class="font-semibold text-yellow-700">{{ $insight['title'] }}</p>
+                                        <p class="text-sm text-yellow-600 mt-1">{{ $insight['desc'] }}</p>
+                                    </div>
+                                </div>
+
+                            @else
+                                <!-- GREEN CARD -->
+                                <div class="flex items-start gap-4 bg-green-50 rounded-2xl p-4">
+                                    <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center text-green-600 text-lg shrink-0">
+                                        ✔
+                                    </div>
+                                    <div>
+                                        <p class="font-semibold text-green-700">{{ $insight['title'] }}</p>
+                                        <p class="text-sm text-green-600 mt-1">{{ $insight['desc'] }}</p>
+                                    </div>
+                                </div>
+
+                            @endif
+
                         @endforeach
+
                     </div>
                 </div>
 

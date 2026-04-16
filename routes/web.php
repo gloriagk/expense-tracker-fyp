@@ -4,6 +4,7 @@ use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\BudgetController;
+use App\Http\Controllers\AnalysisController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -22,6 +23,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/expenses/{id}', [ExpenseController::class, 'destroy'])->name('expenses.destroy');
     Route::get('/budget', [BudgetController::class, 'index'])->name('budget.index');
     Route::post('/budget', [BudgetController::class, 'store'])->name('budget.store');
+    Route::get('/analysis', [AnalysisController::class, 'index'])->name('analysis.index');
 });
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
