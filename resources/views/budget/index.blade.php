@@ -13,6 +13,44 @@
                 </div>
             @endif
 
+            @if($alertMessage)
+
+                @if($alertType === 'danger')
+                    <div class="flex items-start gap-4 bg-red-50 rounded-2xl p-4 mb-6 border border-red-200">
+                        <div class="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center text-red-600 text-lg shrink-0">
+                            ⚠
+                        </div>
+                        <div>
+                            <p class="font-semibold text-red-700">Budget Alert</p>
+                            <p class="text-sm text-red-600 mt-1">{{ $alertMessage }}</p>
+                        </div>
+                    </div>
+
+                @elseif($alertType === 'warning')
+                    <div class="flex items-start gap-4 bg-yellow-50 rounded-2xl p-4 mb-6 border border-yellow-200">
+                        <div class="w-10 h-10 rounded-full bg-yellow-100 flex items-center justify-center text-yellow-600 text-lg shrink-0">
+                            ⚠
+                        </div>
+                        <div>
+                            <p class="font-semibold text-yellow-700">Budget Warning</p>
+                            <p class="text-sm text-yellow-600 mt-1">{{ $alertMessage }}</p>
+                        </div>
+                    </div>
+
+                @elseif($alertType === 'safe')
+                    <div class="flex items-start gap-4 bg-green-50 rounded-2xl p-4 mb-6 border border-green-200">
+                        <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center text-green-600 text-lg shrink-0">
+                            ✔
+                        </div>
+                        <div>
+                            <p class="font-semibold text-green-700">Budget Status</p>
+                            <p class="text-sm text-green-600 mt-1">{{ $alertMessage }}</p>
+                        </div>
+                    </div>
+                @endif
+
+            @endif
+
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
                 <!-- Budget Form -->

@@ -54,6 +54,22 @@ class DashboardController extends Controller
         $budgetLeft = max($budgetTotal - $total, 0);
         $budgetUsedPercent = $budgetTotal > 0 ? min(($total / $budgetTotal) * 100, 100) : 0;
 
+        $alertMessage = null;
+        $alertType = null;
+
+        if ($budgetTotal > 0) {
+            if ($budgetUsedPercent >= 100) {
+                $alertType = 'danger';
+                $alertMessage = 'You have exceeded your budget limit.';
+            } elseif ($budgetUsedPercent >= 80) {
+                $alertType = 'warning';
+                $alertMessage = 'Warning: You have used more than 80% of your budget.';
+            } else {
+                $alertType = 'safe';
+                $alertMessage = 'You are still within your budget.';
+            }
+        }
+
         $insights = [
             [
                 'title' => 'Great job staying consistent',
@@ -87,7 +103,9 @@ class DashboardController extends Controller
             'budgetTotal',
             'budgetLeft',
             'budgetUsedPercent',
-            'insights'
+            'insights',
+            'alertMessage',
+            'alertType'
         ));
     }
 }
