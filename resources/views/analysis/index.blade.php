@@ -40,7 +40,7 @@
                 </h3>
 
                 <p class="text-sm leading-relaxed">
-                    {{ $insightText }}
+                    {{ $clusterInsight }}
                 </p>
 
             </div>
@@ -60,6 +60,148 @@
                         <canvas id="categoryBreakdownChart"></canvas>
                     </div>
                 </div>
+            </div>
+
+            <!-- K-Means Clusters -->
+            <div class="bg-white rounded-2xl shadow-sm border p-6 mb-6">
+
+                <div class="flex items-center justify-between mb-6">
+                    <h3 class="text-xl font-semibold text-gray-800">
+                        K-Means Spending Clusters
+                    </h3>
+
+                    <span class="px-3 py-1 text-xs font-medium bg-indigo-100 text-indigo-700 rounded-full">
+                        AI Analysis
+                    </span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+                    <!-- Low Spending -->
+                    <div class="bg-green-50 rounded-2xl p-6 border border-green-200">
+
+                        <h4 class="font-semibold text-green-700 text-lg mb-4">
+                            🟢 Low Spending
+                        </h4>
+
+                        @if(count($clusters['Low Spending']) > 0)
+
+                            <p class="text-4xl font-bold text-green-700">
+                                {{ count($clusters['Low Spending']) }}
+                            </p>
+
+                            <p class="text-sm text-green-600 mt-1 mb-4">
+                                Transactions
+                            </p>
+
+                            <div class="border-t pt-3">
+                                <p class="text-xs uppercase text-gray-500">
+                                    Spending Range
+                                </p>
+
+                                <p class="font-semibold text-gray-800 mt-1">
+                                    RM{{ number_format(min($clusters['Low Spending']),2) }}
+                                    -
+                                    RM{{ number_format(max($clusters['Low Spending']),2) }}
+                                </p>
+
+                                <p class="text-xs text-gray-500 mt-3">
+                                    Centroid: RM{{ number_format($clusterCentroids['Low Spending'], 2) }}
+                                </p>
+                            </div>
+
+                        @else
+
+                            <p class="text-gray-500">No data available</p>
+
+                        @endif
+
+                    </div>
+
+                    <!-- Medium Spending -->
+                    <div class="bg-yellow-50 rounded-2xl p-6 border border-yellow-200">
+
+                        <h4 class="font-semibold text-yellow-700 text-lg mb-4">
+                            🟡 Medium Spending
+                        </h4>
+
+                        @if(count($clusters['Medium Spending']) > 0)
+
+                            <p class="text-4xl font-bold text-yellow-700">
+                                {{ count($clusters['Medium Spending']) }}
+                            </p>
+
+                            <p class="text-sm text-yellow-600 mt-1 mb-4">
+                                Transactions
+                            </p>
+
+                            <div class="border-t pt-3">
+                                <p class="text-xs uppercase text-gray-500">
+                                    Spending Range
+                                </p>
+
+                                <p class="font-semibold text-gray-800 mt-1">
+                                    RM{{ number_format(min($clusters['Medium Spending']),2) }}
+                                    -
+                                    RM{{ number_format(max($clusters['Medium Spending']),2) }}
+                                </p>
+
+                                <p class="text-xs text-gray-500 mt-3">
+                                    Centroid: RM{{ number_format($clusterCentroids['Medium Spending'], 2) }}
+                                </p>
+                            </div>
+
+                        @else
+
+                            <p class="text-gray-500">No data available</p>
+
+                        @endif
+
+                    </div>
+
+                    <!-- High Spending -->
+                    <div class="bg-red-50 rounded-2xl p-6 border border-red-200">
+
+                        <h4 class="font-semibold text-red-700 text-lg mb-4">
+                            🔴 High Spending
+                        </h4>
+
+                        @if(count($clusters['High Spending']) > 0)
+
+                            <p class="text-4xl font-bold text-red-700">
+                                {{ count($clusters['High Spending']) }}
+                            </p>
+
+                            <p class="text-sm text-red-600 mt-1 mb-4">
+                                Transactions
+                            </p>
+
+                            <div class="border-t pt-3">
+                                <p class="text-xs uppercase text-gray-500">
+                                    Spending Range
+                                </p>
+
+                                <p class="font-semibold text-gray-800 mt-1">
+                                    RM{{ number_format(min($clusters['High Spending']),2) }}
+                                    -
+                                    RM{{ number_format(max($clusters['High Spending']),2) }}
+                                </p>
+
+                                <p class="text-xs text-gray-500 mt-3">
+                                    Centroid: RM{{ number_format($clusterCentroids['High Spending'], 2) }}
+                                </p>
+                            </div>
+
+                        @else
+
+                            <p class="text-gray-500">No data available</p>
+
+                        @endif
+
+                    </div>
+
+                </div>
+
             </div>
 
             <!-- High-spending categories -->

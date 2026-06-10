@@ -70,26 +70,69 @@ class DashboardController extends Controller
             }
         }
 
-        $insights = [
-            [
-                'title' => 'Great job staying consistent',
-                'desc' => 'Your recent spending pattern looks stable.',
-                'bg' => 'bg-blue-50',
-                'text' => 'text-blue-700',
-            ],
-            [
-                'title' => 'Watch your highest category',
-                'desc' => count($categoryLabels) ? 'Your top category is ' . $categoryLabels[array_keys($categoryData, max($categoryData))[0]] . '.' : 'No category data yet.',
+        $insights = [];
+
+        // Highest spending category
+        $topCategory = count($categoryLabels)
+            ? $categoryLabels[array_keys($categoryData, max($categoryData))[0]]
+            : 'Unknown';
+
+        // Budget insight
+        if ($budgetUsedPercent >= 100) {
+
+            $insights[] = [
+                'title' => 'Budget Exceeded',
+                'desc' => 'You have exceeded your monthly budget. Consider reducing spending in ' . $topCategory . '.',
+                'bg' => 'bg-red-50',
+                'text' => 'text-red-700',
+            ];
+
+        } elseif ($budgetUsedPercent >= 80) {
+
+            $insights[] = [
+                'title' => 'Budget Warning',
+                'desc' => 'You have used more than 80% of your budget. Monitor your spending carefully.',
                 'bg' => 'bg-yellow-50',
                 'text' => 'text-yellow-700',
-            ],
-            [
-                'title' => 'Keep tracking regularly',
-                'desc' => 'More data will make your analysis page stronger.',
+            ];
+
+        } else {
+
+            $insights[] = [
+                'title' => 'Budget On Track',
+                'desc' => 'Your spending is currently within budget.',
                 'bg' => 'bg-green-50',
                 'text' => 'text-green-700',
-            ],
+            ];
+        }
+
+        // Top category insight
+        $insights[] = [
+            'title' => 'Highest Spending Category',
+            'desc' => 'Most of your expenses are in ' . $topCategory . '.',
+            'bg' => 'bg-blue-50',
+            'text' => 'text-blue-700',
         ];
+
+        // Data quality insight
+        if ($count < 10) {
+
+            $insights[] = [
+                'title' => 'More Data Needed',
+                'desc' => 'Add more expenses to improve analysis accuracy and K-Means clustering results.',
+                'bg' => 'bg-purple-50',
+                'text' => 'text-purple-700',
+            ];
+
+        } else {
+
+            $insights[] = [
+                'title' => 'Good Data Coverage',
+                'desc' => 'You have sufficient transaction data for spending analysis.',
+                'bg' => 'bg-green-50',
+                'text' => 'text-green-700',
+            ];
+        }
 
         return view('dashboard', compact(
             'total',

@@ -59,9 +59,92 @@ class AnalysisController extends Controller
             ];
         })->sortByDesc('amount')->values();
 
-        $insightText = count($categoryLabels) > 0
-            ? "You are spending most on {$topCategory}. Review this category to manage your expenses better."
-            : "No enough expense data yet. Add more expenses to generate spending insights.";
+        // K-MEANS CLUSTERING (k = 3)
+
+        $amounts = $expenses->pluck('amount')->toArray();
+
+        $clusters = [
+            'Low Spending' => [],
+            'Medium Spending' => [],
+            'High Spending' => [],
+        ];
+
+        $clusterInsight = "Not enough data for clustering.";
+
+        $clusterCentroids = [
+            'Low Spending' => 0,
+            'Medium Spending' => 0,
+            'High Spending' => 0,
+        ];
+
+        if (count($amounts) >= 3) {
+
+            // Initial centroids
+            $centroids = [
+                min($amounts),
+                array_sum($amounts) / count($amounts),
+                max($amounts),
+            ];
+
+            // Run K-Means for 5 iterations
+            for ($iteration = 0; $iteration < 5; $iteration++) {
+
+                $tempClusters = [
+                    0 => [],
+                    1 => [],
+                    2 => [],
+                ];
+
+                foreach ($amounts as $amount) {
+
+                    $distances = [
+                        abs($amount - $centroids[0]),
+                        abs($amount - $centroids[1]),
+                        abs($amount - $centroids[2]),
+                    ];
+
+                    $nearestCluster = array_search(min($distances), $distances);
+
+                    $tempClusters[$nearestCluster][] = $amount;
+                }
+
+                foreach ($tempClusters as $index => $cluster) {
+                    if (count($cluster) > 0) {
+                        $centroids[$index] = array_sum($cluster) / count($cluster);
+                    }
+                }
+            }
+
+            // Sort centroids
+            asort($centroids);
+
+            $sortedIndexes = array_keys($centroids);
+
+            $clusters['Low Spending'] = $tempClusters[$sortedIndexes[0]] ?? [];
+            $clusters['Medium Spending'] = $tempClusters[$sortedIndexes[1]] ?? [];
+            $clusters['High Spending'] = $tempClusters[$sortedIndexes[2]] ?? [];
+
+            // Generate insight
+            $largestClusterName = '';
+            $largestClusterCount = 0;
+
+            foreach ($clusters as $name => $cluster) {
+
+                if (count($cluster) > $largestClusterCount) {
+                    $largestClusterCount = count($cluster);
+                    $largestClusterName = $name;
+                }
+            }
+
+            $clusterInsight =
+                "Most of your expenses belong to the {$largestClusterName} cluster. This indicates your dominant spending behaviour.";
+
+                $clusterCentroids = [
+                    'Low Spending' => round($centroids[$sortedIndexes[0]], 2),
+                    'Medium Spending' => round($centroids[$sortedIndexes[1]], 2),
+                    'High Spending' => round($centroids[$sortedIndexes[2]], 2),
+                ];
+        }
 
         return view('analysis.index', compact(
             'totalSpent',
@@ -73,7 +156,9 @@ class AnalysisController extends Controller
             'monthLabels',
             'monthData',
             'highSpendingCategories',
-            'insightText'
+            'clusters',
+            'clusterInsight',
+            'clusterCentroids'
         ));
     }
 }
